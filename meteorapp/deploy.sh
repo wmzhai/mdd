@@ -25,7 +25,7 @@ ssh root@${ASERV} docker run -d \
   -e ROOT_URL=http://${ASERV} \
   -e MONGO_URL="mongodb://${MSERV}:27017/meteorapp?replicaSet=rs0" \
   -e MONGO_OPLOG_URL="mongodb://${MSERV}:27017/local?replicaSet=rs0" \
-  -v /root/servers/front_end:/bundle \
+  -v /root/meteorapp:/bundle \
   -p 80:80 \
   --name=meteorapp \
   wmzhai:mdd

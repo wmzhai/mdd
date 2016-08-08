@@ -9,3 +9,6 @@ ssh root@${DSERV} 'echo "deb https://mirrors.tuna.tsinghua.edu.cn/docker/apt/rep
 
 # 安装 Docker
 ssh root@${DSERV} 'apt-get update -y && apt-get install -y docker-engine'
+
+# 显示安装信息
+ssh root@${DSERV}  'docker info'

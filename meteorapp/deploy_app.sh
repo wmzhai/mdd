@@ -13,13 +13,6 @@ meteor build --architecture=os.linux.x86_64  ./ --server=http://${ASERV}
 ssh root@${ASERV} mkdir -p /root/meteorapp
 scp ./*.tar.gz root@${ASERV}:/root/meteorapp
 
-# 拷贝 Dockerfile
-ssh root@${ASERV} mkdir -p /root/mdd
-scp -r ../image/* root@${ASERV}:/root/mdd
-
-# Docker build
-ssh root@${ASERV} 'cd /root/mdd && docker build -t mdd:1.3 .'
-
 # Docker run
 ssh root@${ASERV} docker run -d \
   -e ROOT_URL=http://${ASERV} \
@@ -28,4 +21,4 @@ ssh root@${ASERV} docker run -d \
   -v /root/meteorapp:/bundle \
   -p 80:80 \
   --name=meteorapp \
-  mdd:1.3
+  wmzhai/mdd:1.3

@@ -1,24 +1,26 @@
 #!/usr/bin/env bash
 
-export ASERV=${1} # App Server
-export MSERV=${2} # Mongo Server
+export APPNAME=${1}
+export IP=${2} # App Server IP
+export PORT=${3} # App Server PORT
+export MONGO=${4} # Mongo Server or replicaSet with port
 
 # 安装依赖的 npm 包
-meteor npm install
+meteor npm i
 
 # 打包项目
-meteor build --architecture=os.linux.x86_64  ./ --server=http://${ASERV}
+meteor build --architecture=os.linux.x86_64  ./ --server=http://${IP}:${PORT}
 
 # 拷贝镜像
-ssh root@${ASERV} mkdir -p /root/meteorapp
-scp ./*.tar.gz root@${ASERV}:/root/meteorapp
+ssh root@${IP} mkdir -p /root/${APPNAME}
+scp ./*.tar.gz root@${IP}:/root/${APPNAME}
 
 # Docker run
-ssh root@${ASERV} docker run -d \
-  -e ROOT_URL=http://${ASERV} \
-  -e MONGO_URL="mongodb://${MSERV}:27017/meteorapp?replicaSet=rs0" \
-  -e MONGO_OPLOG_URL="mongodb://${MSERV}:27017/local?replicaSet=rs0" \
-  -v /root/meteorapp:/bundle \
-  -p 80:80 \
-  --name=meteorapp \
+ssh root@${IP} docker run -d \
+  -e ROOT_URL=http://${IP} \
+  -e MONGO_URL="mongodb://${MONGO}/${APPNAME}?replicaSet=rs0" \
+  -e MONGO_OPLOG_URL="mongodb://${MONGO}/local?replicaSet=rs0" \
+  -v /root/${APPNAME}:/bundle \
+  -p ${PORT}:80 \
+  --name=${APPNAME} \
   wmzhai/mdd:1.3

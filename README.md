@@ -26,5 +26,5 @@ cd scripts
 
 ``` bash
 cd meteorapp
-./deploy_app.sh AppServerIP MongoIP
+./deploy_app.sh appName AppServerIP AppServerPort MongoIP:MongoPort
 ```

@@ -8,7 +8,7 @@ cd scripts
 ./deploy_docker.sh AppServerIP
 ```
 
-## Build Docker
+## 构建mdd镜像
 
 ``` bash
 cd image

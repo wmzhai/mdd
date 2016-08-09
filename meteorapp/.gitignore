@@ -1,2 +1,4 @@
-node_modules/
 *.tar.gz
+*~
+.idea
+node_modules/

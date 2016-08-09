@@ -18,7 +18,7 @@ ssh root@${ASERV} mkdir -p /root/mdd
 scp -r ../image/* root@${ASERV}:/root/mdd
 
 # Docker build
-ssh root@${ASERV} 'cd /root/mdd && docker build -t wmzhai:mdd .'
+ssh root@${ASERV} 'cd /root/mdd && docker build -t mdd:1.3 .'
 
 # Docker run
 ssh root@${ASERV} docker run -d \
@@ -28,4 +28,4 @@ ssh root@${ASERV} docker run -d \
   -v /root/meteorapp:/bundle \
   -p 80:80 \
   --name=meteorapp \
-  wmzhai:mdd
+  mdd:1.3

@@ -4,7 +4,7 @@ export ASERV=${1} # App Server
 export MSERV=${2} # Mongo Server
 
 # 安装依赖的 npm 包
-meteor npm install
+meteor npm i
 
 # 打包项目
 meteor build --architecture=os.linux.x86_64  ./ --server=http://${ASERV}
@@ -12,13 +12,6 @@ meteor build --architecture=os.linux.x86_64  ./ --server=http://${ASERV}
 # 拷贝镜像
 ssh root@${ASERV} mkdir -p /root/meteorapp
 scp ./*.tar.gz root@${ASERV}:/root/meteorapp
-
-# 拷贝 Dockerfile
-ssh root@${ASERV} mkdir -p /root/mdd
-scp -r ../image/* root@${ASERV}:/root/mdd
-
-# Docker build
-ssh root@${ASERV} 'cd /root/mdd && docker build -t wmzhai:mdd .'
 
 # Docker run
 ssh root@${ASERV} docker run -d \
@@ -28,4 +21,4 @@ ssh root@${ASERV} docker run -d \
   -v /root/meteorapp:/bundle \
   -p 80:80 \
   --name=meteorapp \
-  wmzhai:mdd
+  wmzhai/mdd:1.4

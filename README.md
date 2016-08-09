@@ -8,6 +8,13 @@ cd scripts
 ./deploy_docker.sh AppServerIP
 ```
 
+## Build Docker
+
+``` bash
+cd image
+./build_image.sh AppServerIP
+```
+
 ## 安装Mongo
 
 ``` bash

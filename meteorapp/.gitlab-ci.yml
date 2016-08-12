@@ -1,0 +1,28 @@
+before_script:
+  - echo "before_script"
+  - pwd
+  - source ~/settings
+  - echo $APPNAME
+  - echo $IP
+  - echo $PORT
+  - echo $MONGO
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - echo "Build $APPNAME"
+
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploy $APPNAME"
+    - meteor npm i
+    - meteor build --architecture=os.linux.x86_64  ./ --server=http://$IP:$PORT
+    - ssh root@$IP mkdir -p /root/$APPNAME
+    - scp ./*.tar.gz root@$IP:/root/$APPNAME
+    - ssh root@$IP docker restart $APPNAME

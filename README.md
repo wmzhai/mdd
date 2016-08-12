@@ -4,7 +4,6 @@
 ## 安装Docker
 
 ``` bash
-cd scripts
 ./deploy_docker.sh AppServerIP
 ```
 
@@ -18,7 +17,6 @@ cd image
 ## 安装Mongo
 
 ``` bash
-cd scripts
 ./deploy_mongo.sh MongoIP
 ```
 
@@ -26,5 +24,6 @@ cd scripts
 
 ``` bash
 cd meteorapp
-./deploy_app.sh appName AppServerIP AppServerPort MongoIP:MongoPort
+vi settings # edit your settings
+./deploy.sh
 ```
